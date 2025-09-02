@@ -248,3 +248,4 @@ $RECYCLE.BIN/
 *.code-workspace
 # Add back eventually
 scripts/
+.github/

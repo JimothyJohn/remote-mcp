@@ -8,10 +8,11 @@ authors = [
     {name = "Nick Armenta", email = "nick@advin.io"},
 ]
 license = {text = "MIT"}
+
 dependencies = [
     "boto3>=1.40.21",
     "mcp[cli]>=1.13.1",
-    "ruff>=0.12.11",
+    
 ]
 
 [dependency-groups]
@@ -29,4 +30,5 @@ dev = [
     "safety>=3.0.0",
     "bandit[toml]>=1.7.0",
     "python-dotenv>=1.1.1",
+    "ruff>=0.12.11",
 ]

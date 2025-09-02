@@ -1,3 +1,5 @@
+![bringing AI to life](docs/banner.png)
+
 # Remote MCP
 
 Deployment template for hosting remote MCP servers and generating clients to test against them.
@@ -7,7 +9,6 @@ Deployment template for hosting remote MCP servers and generating clients to tes
 
 [] Add a resource
 [] Add CoinGecko
-
 
 ## Resources
 

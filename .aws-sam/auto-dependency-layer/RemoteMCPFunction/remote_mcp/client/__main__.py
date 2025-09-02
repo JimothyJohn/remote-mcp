@@ -1,8 +1,7 @@
 import asyncio
 import argparse
 import os
-import sys
-from fastmcp import Client, FastMCP
+from fastmcp import Client
 import dotenv
 
 dotenv.load_dotenv()

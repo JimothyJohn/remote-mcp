@@ -248,4 +248,10 @@ $RECYCLE.BIN/
 *.code-workspace
 # Add back eventually
 scripts/
+!scripts/test.sh
 .github/
+.aws-sam/
+.ruff_cache/
+safety_report.json
+.claude/
+.vscode/

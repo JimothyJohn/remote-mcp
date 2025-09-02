@@ -16,6 +16,22 @@ import functools
 import inspect
 import json
 import logging
+from contextvars import ContextVar
+from enum import Enum
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Generic,
+    List,
+    Optional,
+    TypeVar,
+    Union,
+    get_args,
+    get_origin,
+    get_type_hints,
+)
+
 from remote_mcp.server.mcp_lambda_handler.session import (
     DynamoDBSessionStore,
     NoOpSessionStore,
@@ -35,22 +51,6 @@ from remote_mcp.server.mcp_lambda_handler.types import (
     StaticResource,
     TextContent,
 )
-from contextvars import ContextVar
-from enum import Enum
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generic,
-    List,
-    Optional,
-    TypeVar,
-    Union,
-    get_args,
-    get_origin,
-    get_type_hints,
-)
-
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +69,7 @@ class SessionData(Generic[T]):
         """Initialize the class."""
         self._data = data
 
-    def get(self, key: str, default: T = None) -> T:
+    def get(self, key: str, default: Optional[T] = None) -> Optional[T]:
         """Get a value from session data with type safety."""
         return self._data.get(key, default)
 
@@ -105,12 +105,12 @@ class MCPLambdaHandler:
         self.name = name
         self.version = version
         self.tools: Dict[str, Dict] = {}
-        self.tool_implementations: Dict[str, Callable] = {}
+        self.tool_implementations: Dict[str, Callable[..., Any]] = {}
         self.resources: Dict[str, Resource] = {}
 
         # Configure session storage
         if session_store is None:
-            self.session_store = NoOpSessionStore()
+            self.session_store: SessionStore = NoOpSessionStore()
         elif isinstance(session_store, str):
             # Backwards compatibility - treat string as DynamoDB table name
             self.session_store = DynamoDBSessionStore(table_name=session_store)

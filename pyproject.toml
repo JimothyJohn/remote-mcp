@@ -1,19 +1,18 @@
 [project]
-name = "remote-mcp"
+name = "remote_mcp"
 version = "0.1.0"
 description = "Remote MCP Server Template"
-readme = "README.md"
-requires-python = ">=3.11"
 authors = [
     {name = "Nick Armenta", email = "nick@advin.io"},
 ]
-license = {text = "MIT"}
 
 dependencies = [
     "boto3>=1.40.21",
     "mcp[cli]>=1.13.1",
-    
 ]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
 
 [dependency-groups]
 dev = [
@@ -21,7 +20,6 @@ dev = [
     "pytest-asyncio>=0.26.0",
     "pytest-cov>=4.1.0",
     "pytest-mock>=3.12.0",
-    "black>=23.0.0",
     "ruff>=0.1.0",
     "mypy>=1.7.0",
     "pre-commit>=3.5.0",
@@ -31,4 +29,5 @@ dev = [
     "bandit[toml]>=1.7.0",
     "python-dotenv>=1.1.1",
     "ruff>=0.12.11",
+    "fastmcp>=2.12.0",
 ]

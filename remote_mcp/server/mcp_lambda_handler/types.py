@@ -16,7 +16,7 @@
 
 import os
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 
 @dataclass
@@ -43,7 +43,7 @@ class JSONRPCResponse:
     id: Optional[str]
     result: Optional[Any] = None
     error: Optional[JSONRPCError] = None
-    errorContent: Optional[List[Dict]] = None
+    errorContent: Optional[List[Dict[str, Any]]] = None
 
     def model_dump_json(self) -> str:
         import json
@@ -186,7 +186,7 @@ class Resource:
     def __post_init__(self):
         """Initialize optional attributes for subclass compatibility."""
         if not hasattr(self, "_content_func"):
-            self._content_func: Optional[Any] = None
+            self._content_func: Optional[Callable[[], str]] = None
 
     def model_dump(self) -> Dict:
         data = {"uri": self.uri, "name": self.name}
@@ -248,8 +248,8 @@ class FileResource(Resource):
             import base64
 
             with open(self.path, "rb") as f:
-                content = f.read()
-            blob_data = base64.b64encode(content).decode("utf-8")
+                content: bytes = f.read()
+            blob_data: str = base64.b64encode(content).decode("utf-8")
             return ResourceContent(
                 uri=self.uri,
                 mimeType=mime_type or "application/octet-stream",
@@ -277,7 +277,7 @@ class StaticResource(Resource):
         """
         super().__init__(uri, name, description, mime_type)
         self.content = content
-        self._content_func: Optional[Any] = None  # For decorator support
+        self._content_func: Optional[Callable[[], str]] = None  # For decorator support
 
     def read_content(self) -> ResourceContent:
         return ResourceContent(uri=self.uri, mimeType=self.mimeType, text=self.content)

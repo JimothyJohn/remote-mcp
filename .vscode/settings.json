@@ -1,0 +1,50 @@
+{
+    // Editor settings
+    "editor.rulers": [
+        88
+    ],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
+    },
+    // Language-specific settings
+    "[python]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false
+    },
+    "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false
+    },
+    "[json]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false
+    },
+    "[toml]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false
+    },
+    // File exclusions
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/.mypy_cache": true,
+        "**/.coverage": true,
+        "**/htmlcov": true,
+        "**/.aws-sam": true,
+        "**/node_modules": true
+    },
+    // Search exclusions
+    "search.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/.mypy_cache": true,
+        "**/.coverage": true,
+        "**/htmlcov": true,
+        "**/.aws-sam": true,
+        "**/coverage.xml": true
+    }
+}

@@ -1,0 +1,31 @@
+# Ignore SAM build artifacts
+.aws-sam/
+
+# Ignore git repository
+.git/
+
+# Ignore IDE and editor folders
+.vscode/
+.idea/
+
+# Ignore virtual environments
+.venv/
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+
+# Ignore test files
+tests/
+pytest.ini
+
+# Ignore project documentation and config files
+README.md
+samconfig.toml
+.gitignore
+pyproject.toml
+
+# Skip local script
+__main__.py
+# Skip client code
+client/

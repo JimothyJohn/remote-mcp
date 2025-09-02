@@ -1,0 +1,103 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'Remote MCP Server - A Model Context Protocol server template with AWS
+  Lambda compatibility
+
+  '
+Parameters:
+  Environment:
+    Type: String
+    Default: staging
+    AllowedValues:
+    - dev
+    - staging
+    - prod
+    Description: Deployment environment
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Tracing: Active
+    LoggingConfig:
+      LogFormat: JSON
+  Api:
+    TracingEnabled: true
+Resources:
+  RemoteMCPFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: RemoteMCPFunction
+      Handler: remote_mcp.server.app.lambda_handler
+      Description: Remote MCP Server Lambda function
+      Runtime: python3.11
+      Architectures:
+      - x86_64
+      Tags:
+        Project: remote-mcp.server
+        Environment:
+          Ref: Environment
+      Events:
+        RemoteMCP:
+          Type: Api
+          Properties:
+            Path: /mcp
+            Method: get
+        RemoteMCPServerPost:
+          Type: Api
+          Properties:
+            Path: /mcp
+            Method: post
+        RemoteMCPServerDelete:
+          Type: Api
+          Properties:
+            Path: /mcp
+            Method: delete
+        HealthCheck:
+          Type: Api
+          Properties:
+            Path: /health
+            Method: get
+      Layers:
+      - Fn::GetAtt:
+        - AwsSamAutoDependencyLayerNestedStack
+        - Outputs.RemoteMCPFunction27748762DepLayer
+    Metadata:
+      BuildMethod: python3.11
+      SamResourceId: RemoteMCPFunction
+  ApplicationResourceGroup:
+    Type: AWS::ResourceGroups::Group
+    Properties:
+      Name:
+        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
+      ResourceQuery:
+        Type: CLOUDFORMATION_STACK_1_0
+  ApplicationInsightsMonitoring:
+    Type: AWS::ApplicationInsights::Application
+    Properties:
+      ResourceGroupName:
+        Ref: ApplicationResourceGroup
+      AutoConfigurationEnabled: 'true'
+  AwsSamAutoDependencyLayerNestedStack:
+    DeletionPolicy: Delete
+    Metadata:
+      CreatedBy: AWS SAM CLI sync command
+    Properties:
+      TemplateURL: /Users/nick/github/remote-mcp/.aws-sam/auto-dependency-layer/adl_nested_template.yaml
+    Type: AWS::CloudFormation::Stack
+Outputs:
+  RemoteMCPApi:
+    Description: API Gateway endpoint URL for Prod stage for Remote MCP Server
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/mcp/
+  RemoteMCPFunction:
+    Description: Remote MCP Server Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - RemoteMCPFunction
+      - Arn
+  RemoteMCPFunctionIamRole:
+    Description: Implicit IAM Role created for Remote MCP Server function
+    Value:
+      Fn::GetAtt:
+      - RemoteMCPFunctionRole
+      - Arn

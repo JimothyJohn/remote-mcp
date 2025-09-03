@@ -3,7 +3,6 @@
 # Remote MCP
 
 [![codecov](https://codecov.io/gh/JimothyJohn/remote-mcp/branch/main/graph/badge.svg)](https://codecov.io/gh/JimothyJohn/remote-mcp)
-[![CI/CD Pipeline](https://github.com/JimothyJohn/remote-mcp/actions/workflows/deploy.yml/badge.svg)](https://github.com/JimothyJohn/remote-mcp/actions/workflows/deploy.yml)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://jimothyjohn.github.io/remote-mcp/)
 
 Deployment template for hosting remote MCP servers and generating clients to test against them.
@@ -12,8 +11,7 @@ Deployment template for hosting remote MCP servers and generating clients to tes
 
 ## TODO
 
-[] Add a resource
-[] Add CoinGecko
+[ ] Add CoinGecko tool
 
 ## Resources
 

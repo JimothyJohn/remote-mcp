@@ -6,16 +6,20 @@
     <title>Remote MCP - Model Context Protocol Server Deployment</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --primary-dark: #4f46e5;
-            --bg-main: #fafafa;
-            --bg-card: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --border: #e5e7eb;
-            --accent: #f3f4f6;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary: #00D4FF;
+            --primary-light: #1EEFFF;
+            --primary-dark: #00A3CC;
+            --accent-orange: #FF6B00;
+            --accent-red: #FF073A;
+            --bg-main: #0A0E17;
+            --bg-card: #16213E;
+            --bg-card-hover: #1A2B4A;
+            --text-primary: #E0E7FF;
+            --text-secondary: #B8C5D6;
+            --border: #2D3748;
+            --accent: #1A1A2E;
+            --gradient: linear-gradient(135deg, #00D4FF 0%, #FF6B00 100%);
+            --hero-gradient: linear-gradient(135deg, #0A0E17 0%, #16213E 50%, #1A1A2E 100%);
         }
 
         * {
@@ -33,11 +37,12 @@
         }
 
         .hero {
-            background: var(--gradient);
+            background: var(--hero-gradient);
             padding: 120px 20px 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 2px solid var(--primary);
         }
 
         .hero::before {
@@ -48,8 +53,9 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 7, 58, 0.08) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -94,25 +100,29 @@
         }
 
         .btn-primary {
-            background: white;
-            color: var(--primary-dark);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: var(--primary);
+            color: var(--bg-main);
+            box-shadow: 0 4px 6px rgba(0, 212, 255, 0.3), 0 0 20px rgba(0, 212, 255, 0.2);
+            border: 2px solid transparent;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 12px rgba(0, 212, 255, 0.4), 0 0 25px rgba(0, 212, 255, 0.3);
+            background: var(--primary-light);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: transparent;
+            color: var(--accent-orange);
+            border: 2px solid var(--accent-orange);
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.2);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: white;
+            background: var(--accent-orange);
+            color: var(--bg-main);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
         }
 
         .container {
@@ -146,14 +156,33 @@
             background: var(--bg-card);
             border-radius: 16px;
             padding: 40px 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 212, 255, 0.1);
             transition: all 0.3s ease;
             border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 212, 255, 0.2);
+            background: var(--bg-card-hover);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-icon {
@@ -180,15 +209,16 @@
         }
 
         .code-block {
-            background: #1f2937;
-            color: #e5e7eb;
+            background: var(--accent);
+            color: var(--primary-light);
             padding: 30px;
             border-radius: 12px;
             overflow-x: auto;
             margin: 40px 0;
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--border);
         }
 
         .code-block code {
@@ -197,10 +227,12 @@
         }
 
         .resources {
-            background: var(--accent);
+            background: var(--bg-card);
             border-radius: 16px;
             padding: 40px;
             margin-top: 60px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 107, 0, 0.1);
         }
 
         .resource-list {
@@ -214,7 +246,7 @@
             display: flex;
             align-items: center;
             padding: 16px 20px;
-            background: white;
+            background: var(--accent);
             border-radius: 8px;
             text-decoration: none;
             color: var(--text-primary);
@@ -224,8 +256,9 @@
 
         .resource-link:hover {
             background: var(--primary);
-            color: white;
+            color: var(--bg-main);
             transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
         }
 
         .resource-link::before {
@@ -237,8 +270,8 @@
         footer {
             text-align: center;
             padding: 40px 20px;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
+            background: var(--accent);
+            border-top: 2px solid var(--primary);
             color: var(--text-secondary);
         }
 
@@ -256,7 +289,8 @@
         }
 
         .footer-links a:hover {
-            color: var(--primary-dark);
+            color: var(--accent-orange);
+            text-shadow: 0 0 8px rgba(255, 107, 0, 0.5);
         }
 
         @keyframes fadeInUp {

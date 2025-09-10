@@ -10,7 +10,7 @@ dotenv.load_dotenv()
 # Define the endpoints to test against
 endpoints = {
     "cloud": os.environ.get("AWS_ENDPOINT"),
-    "local": "http://localhost:8000/mcp",
+    # "local": "http://localhost:3000/mcp",
 }
 
 

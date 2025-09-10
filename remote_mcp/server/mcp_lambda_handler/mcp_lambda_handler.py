@@ -645,9 +645,32 @@ class MCPLambdaHandler:
 
         except Exception as e:
             logger.error(f"Error processing request: {str(e)}", exc_info=True)
-            return self._create_error_response(
-                -32000, str(e), request_id, session_id=session_id
-            )
+            # AI-generated change: Add a fallback error response to prevent panics.
+            # If creating the standard error response fails, this ensures the
+            # Lambda function still returns a valid, albeit minimal, JSON response.
+            # This prevents the Lambda runtime from crashing due to an empty body.
+            try:
+                return self._create_error_response(
+                    -32000, str(e), request_id, session_id=session_id
+                )
+            except Exception as final_e:
+                logger.error(
+                    f"Failed to create error response: {final_e}", exc_info=True
+                )
+                return {
+                    "statusCode": 500,
+                    "body": json.dumps(
+                        {
+                            "jsonrpc": "2.0",
+                            "id": request_id,
+                            "error": {
+                                "code": -32000,
+                                "message": "An internal error occurred while creating the error response.",
+                            },
+                        }
+                    ),
+                    "headers": {"Content-Type": "application/json"},
+                }
         finally:
             # Clear session context
             current_session_id.set(None)

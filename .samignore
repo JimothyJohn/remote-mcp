@@ -25,7 +25,5 @@ samconfig.toml
 .gitignore
 pyproject.toml
 
-# Skip local script
-__main__.py
 # Skip client code
 client/

@@ -1,3 +1,11 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#    "fastmcp>=2.12.0",
+#    "python-dotenv>=1.1.1",
+# ]
+# ///
 import asyncio
 import argparse
 import os
@@ -12,8 +20,8 @@ async def main():
     parser.add_argument(
         "--url",
         "-u",
-        default=os.environ.get("AWS_ENDPOINT", "http://localhost:8000/mcp"),
-        help="Server URL (default: AWS_ENDPOINT env var or http://localhost:8000/mcp)",
+        default=os.environ.get("AWS_ENDPOINT", "http://localhost:3000/mcp"),
+        help="Server URL (default: AWS_ENDPOINT env var or http://localhost:3000/mcp)",
     )
     parser.add_argument("--tool", "-t", help="Tool to call (e.g., 'add')")
     parser.add_argument(

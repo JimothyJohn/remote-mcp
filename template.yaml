@@ -22,6 +22,11 @@ Globals:
   Api:
     TracingEnabled: true
 Resources:
+  RemoteMCPApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref Environment
+
   RemoteMCPFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -38,22 +43,26 @@ Resources:
         RemoteMCP:
           Type: Api
           Properties:
+            RestApiId: !Ref RemoteMCPApiGateway
             Path: /mcp
             Method: get
         RemoteMCPServerPost:
           Type: Api
           Properties:
+            RestApiId: !Ref RemoteMCPApiGateway
             Path: /mcp
             Method: post
             # Auth: ApiKeyRequired: true
         RemoteMCPServerDelete:
           Type: Api
           Properties:
+            RestApiId: !Ref RemoteMCPApiGateway
             Path: /mcp
             Method: delete
         HealthCheck:
           Type: Api
           Properties:
+            RestApiId: !Ref RemoteMCPApiGateway
             Path: /health
             Method: get
     Metadata:
@@ -75,7 +84,7 @@ Resources:
 Outputs:
   RemoteMCPApi:
     Description: API Gateway endpoint URL for Prod stage for Remote MCP Server
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/mcp/"
+    Value: !Sub "https://${RemoteMCPApiGateway}.execute-api.${AWS::Region}.amazonaws.com/mcp/"
   RemoteMCPFunction:
     Description: Remote MCP Server Lambda Function ARN
     Value: !GetAtt RemoteMCPFunction.Arn

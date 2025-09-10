@@ -19,7 +19,7 @@ resolve_s3 = true
 resolve_s3 = true
 
 [default.sync.parameters]
-watch = false
+watch = true 
 
 [default.local_start_api.parameters]
 warm_containers = "EAGER"

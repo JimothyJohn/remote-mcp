@@ -1,4 +1,4 @@
-![bringing AI to life](docs/banner.png)
+<img src="docs/banner.png" alt="bringing AI to life" width="400">
 
 # Remote MCP
 
@@ -7,7 +7,6 @@
 
 Deployment template for hosting remote MCP servers and generating clients to test against them.
 
-📚 [View Documentation](https://jimothyjohn.github.io/remote-mcp/)
 
 ## TODO
 
